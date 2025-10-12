@@ -1,3 +1,5 @@
+#include <X11/XF86keysym.h>
+
 static const int refreshrate = 120;  /* refresh rate (per second) for client move/resize */
 #if PLACEMOUSE_PATCH
 static const int refreshrate_placemouse = 60; /* refresh rate (per second) for placemouse */
@@ -828,8 +830,6 @@ static const char *brightness_down[] = { "brightnessctl", "set", "10%-", NULL };
 #if COMBO_PATCH && SWAPTAGS_PATCH && TAGOTHERMONITOR_PATCH
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      comboview,      {.ui = 1 << TAG} }, \
-  { 0, XF86XK_MonBrightnessUp,    spawn,          {.v = brightness_up } },
-  { 0, XF86XK_MonBrightnessDown,  spawn,          {.v = brightness_down } },
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      combotag,       {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} }, \
@@ -1062,6 +1062,8 @@ ResourcePref resources[] = {
 
 static const Key keys[] = {
 	/* modifier                     key            function                argument */
+  { 0, XF86XK_MonBrightnessUp,                    spawn,                  {.v = brightness_up } },
+  { 0, XF86XK_MonBrightnessDown,                  spawn,                  {.v = brightness_down } },
 	#if KEYMODES_PATCH
 	{ MODKEY,                       XK_Escape,     setkeymode,             {.ui = COMMANDMODE} },
 	#endif // KEYMODES_PATCH
