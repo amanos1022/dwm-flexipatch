@@ -820,11 +820,16 @@ static const char *xkb_layouts[]  = {
 };
 #endif // XKB_PATCH
 
+static const char *brightness_up[]   = { "brightnessctl", "set", "+10%", NULL };
+static const char *brightness_down[] = { "brightnessctl", "set", "10%-", NULL };
+
 /* key definitions */
 #define MODKEY Mod4Mask
 #if COMBO_PATCH && SWAPTAGS_PATCH && TAGOTHERMONITOR_PATCH
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      comboview,      {.ui = 1 << TAG} }, \
+  { 0, XF86XK_MonBrightnessUp,    spawn,          {.v = brightness_up } },
+  { 0, XF86XK_MonBrightnessDown,  spawn,          {.v = brightness_down } },
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      combotag,       {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} }, \
